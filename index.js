@@ -66,7 +66,7 @@ inquirer.prompt([
         name: "p7",
         message: "Endereço",
         type: "input",
-        when: res => res.p6 !== true && res.p1 !== "Não",
+        when: res => !res.p6 && res.p1 !== "Não",
         validate: confirmAnswerValidator,
     },
     {
@@ -98,12 +98,12 @@ inquirer.prompt([
     },
 ])
 .then(res => {
-    const isDelivery = `${res.p6 !== true ? `Seu pedido será enviado para: ${res.p7}, iremos lhe avisar por telefone quando estiver a caminho`: "O pedido será retirado no Estabelecimento, Iremos lhe avisar por Telefone quando estiver pronto"}, Muito obrigado!`
+    const isDelivery = `${!res.p6 ? `Seu pedido será enviado para: ${res.p7}, iremos lhe avisar por telefone quando estiver a caminho`: "O pedido será retirado no Estabelecimento, Iremos lhe avisar por Telefone quando estiver pronto"}, Muito obrigado!`
     const totalPrice = `${res.p9 === "Cartão" ? "" : "Troco para: R$"+res.p10}`
     const order = `Você pediu ${res.p3} - Sabor ${res.p4} ${res.p5 !== "Nenhuma, Finalizar Pedido!" ? res.p5 : ""}!
     \n${totalPrice} \n${isDelivery}`
 
-    res.p11 !== true
+    !res.p11
     ? 
     console.log("Você cancelou seu pedido!") 
     : 
